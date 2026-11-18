@@ -1,0 +1,198 @@
+/* Buttons */
+
+.gc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: var(--gc-radius);
+  border: 1px solid var(--gc-border-strong);
+  background: var(--gc-surface-2);
+  color: var(--gc-text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--gc-transition), border-color var(--gc-transition),
+    transform var(--gc-transition), opacity var(--gc-transition);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.gc-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.gc-btn:hover:not(:disabled) {
+  background: var(--gc-surface-3);
+  border-color: var(--gc-text-dim);
+}
+
+.gc-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.gc-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gc-btn.primary {
+  background: var(--gc-accent);
+  border-color: var(--gc-accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.gc-btn.primary:hover:not(:disabled) {
+  background: var(--gc-accent-hover);
+  border-color: var(--gc-accent-hover);
+}
+
+.gc-btn.primary:active:not(:disabled) {
+  background: var(--gc-accent-active);
+}
+
+.gc-btn.success {
+  background: var(--gc-success);
+  border-color: var(--gc-success);
+  color: #08130c;
+  font-weight: 600;
+}
+
+.gc-btn.danger {
+  background: transparent;
+  border-color: rgba(239, 83, 80, 0.5);
+  color: var(--gc-error);
+}
+
+.gc-btn.danger:hover:not(:disabled) {
+  background: var(--gc-error-soft);
+  border-color: var(--gc-error);
+}
+
+.gc-btn.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--gc-text-muted);
+}
+
+.gc-btn.ghost:hover:not(:disabled) {
+  background: var(--gc-surface-2);
+  color: var(--gc-text);
+  border-color: transparent;
+}
+
+.gc-btn.sm {
+  padding: 4px 9px;
+  font-size: 12px;
+  border-radius: var(--gc-radius-sm);
+}
+
+.gc-btn.sm svg {
+  width: 13px;
+  height: 13px;
+}
+
+.gc-btn.icon-only {
+  padding: 6px;
+  width: 30px;
+  height: 30px;
+}
+
+.gc-btn.block {
+  width: 100%;
+}
+
+/* Segmented control (method selector, view modes) */
+
+.gc-segmented {
+  display: inline-flex;
+  background: var(--gc-surface-2);
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius);
+  overflow: hidden;
+}
+
+.gc-segmented button {
+  border: none;
+  background: transparent;
+  color: var(--gc-text-muted);
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--gc-transition), color var(--gc-transition);
+}
+
+.gc-segmented button:hover {
+  color: var(--gc-text);
+  background: var(--gc-surface-3);
+}
+
+.gc-segmented button.active {
+  background: var(--gc-accent);
+  color: #fff;
+}
+
+/* Method badge */
+
+.gc-method {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 3px 8px;
+  border-radius: var(--gc-radius-sm);
+  font-family: var(--gc-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.gc-method.GET { background: rgba(46, 204, 113, 0.16); color: var(--gc-method-get); }
+.gc-method.POST { background: rgba(74, 163, 255, 0.16); color: var(--gc-method-post); }
+.gc-method.PUT { background: rgba(240, 166, 58, 0.16); color: var(--gc-method-put); }
+.gc-method.PATCH { background: rgba(176, 106, 224, 0.16); color: var(--gc-method-patch); }
+.gc-method.DELETE { background: rgba(239, 83, 80, 0.16); color: var(--gc-method-delete); }
+.gc-method.HEAD { background: rgba(127, 140, 154, 0.18); color: #9aa7b4; }
+.gc-method.OPTIONS { background: rgba(86, 204, 154, 0.16); color: var(--gc-method-options); }
+
+/* Status badge */
+
+.gc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--gc-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gc-status.ok { background: var(--gc-success-soft); color: var(--gc-success); }
+.gc-status.redirect { background: var(--gc-info-soft); color: var(--gc-info); }
+.gc-status.client-error,
+.gc-status.server-error { background: var(--gc-error-soft); color: var(--gc-error); }
+.gc-status.neutral { background: var(--gc-surface-3); color: var(--gc-text-muted); }
+
+/* Chips / tags */
+
+.gc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  background: var(--gc-surface-3);
+  color: var(--gc-text-muted);
+  border: 1px solid var(--gc-border);
+}
+
+.gc-chip.accent { background: var(--gc-accent-soft); color: var(--gc-accent-hover); border-color: var(--gc-accent-border); }
+.gc-chip.success { background: var(--gc-success-soft); color: var(--gc-success); border-color: transparent; }
+.gc-chip.error { background: var(--gc-error-soft); color: var(--gc-error); border-color: transparent; }
+.gc-chip.warning { background: var(--gc-warning-soft); color: var(--gc-warning); border-color: transparent; }

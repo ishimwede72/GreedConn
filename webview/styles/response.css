@@ -1,0 +1,208 @@
+/* Response viewer */
+
+.gc-response {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  background: var(--gc-surface);
+  border-top: 1px solid var(--gc-border);
+}
+
+.gc-response-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gc-space-3);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--gc-border);
+  flex-wrap: wrap;
+  background: var(--gc-surface-2);
+}
+
+.gc-response-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--gc-space-3);
+  font-family: var(--gc-mono);
+  font-size: 12px;
+  color: var(--gc-text-muted);
+}
+
+.gc-response-meta strong {
+  color: var(--gc-text);
+  font-weight: 600;
+}
+
+.gc-response-tabs {
+  padding: 0 14px;
+  background: var(--gc-surface-2);
+}
+
+.gc-response-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0;
+}
+
+.gc-response-pane {
+  min-height: 100%;
+}
+
+/* Response skeleton while loading */
+
+.gc-response-skeleton {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gc-skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--gc-surface-3) 25%,
+    var(--gc-surface-2) 50%,
+    var(--gc-surface-3) 75%
+  );
+  background-size: 200% 100%;
+  animation: gc-shimmer 1.2s infinite;
+}
+
+@keyframes gc-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Headers table inside response */
+
+.gc-headers-list {
+  padding: 10px 14px;
+}
+
+.gc-header-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 240px) 1fr;
+  gap: 12px;
+  padding: 5px 6px;
+  border-radius: var(--gc-radius-sm);
+  font-family: var(--gc-mono);
+  font-size: 12.5px;
+}
+
+.gc-header-row:nth-child(odd) {
+  background: var(--gc-surface-2);
+}
+
+.gc-header-row .name {
+  color: var(--gc-accent-hover);
+  word-break: break-all;
+}
+
+.gc-header-row .value {
+  color: var(--gc-text);
+  word-break: break-all;
+}
+
+/* Test results inside response */
+
+.gc-test-results {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gc-test-result {
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius);
+  background: var(--gc-surface-2);
+  overflow: hidden;
+}
+
+.gc-test-result-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 11px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gc-test-result-head svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gc-test-result.passed .gc-test-result-head { color: var(--gc-success); }
+.gc-test-result.failed .gc-test-result-head { color: var(--gc-error); }
+.gc-test-result.error .gc-test-result-head { color: var(--gc-warning); }
+.gc-test-result.skipped .gc-test-result-head { color: var(--gc-text-dim); }
+
+.gc-test-assertions {
+  border-top: 1px solid var(--gc-border);
+  padding: 6px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: var(--gc-bg-deep);
+}
+
+.gc-assertion {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  padding: 4px 0;
+}
+
+.gc-assertion .desc {
+  color: var(--gc-text-muted);
+}
+
+.gc-assertion.passed svg { color: var(--gc-success); }
+.gc-assertion.failed svg { color: var(--gc-error); }
+.gc-assertion.error svg { color: var(--gc-warning); }
+.gc-assertion svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; }
+
+.gc-assertion .detail {
+  font-family: var(--gc-mono);
+  font-size: 11.5px;
+  color: var(--gc-text-dim);
+}
+
+/* Preview (HTML) sandbox */
+
+.gc-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  border: none;
+  background: #ffffff;
+}
+
+/* Error panel */
+
+.gc-response-error {
+  margin: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(239, 83, 80, 0.4);
+  background: var(--gc-error-soft);
+  border-radius: var(--gc-radius);
+  font-size: 12.5px;
+}
+
+.gc-response-error h4 {
+  color: var(--gc-error);
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.gc-response-error .code {
+  font-family: var(--gc-mono);
+  color: var(--gc-text-muted);
+  font-size: 11.5px;
+}

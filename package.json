@@ -1,0 +1,255 @@
+{
+  "name": "greedcon",
+  "displayName": "Greedcon",
+  "description": "Professional API testing and development platform for VS Code. Build, send and inspect HTTP requests, manage collections, environments and automated tests — all locally.",
+  "version": "1.0.0",
+  "publisher": "greedcon",
+  "license": "MIT",
+  "icon": "resources/icons/greedcon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Testing",
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "api",
+    "http",
+    "rest",
+    "request",
+    "testing",
+    "client",
+    "postman",
+    "collections"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:greedcon.open",
+    "onCommand:greedcon.newRequest",
+    "onView:greedcon.views.main"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ishimwede72/GreedConn"
+  },
+  "publisherUrl": "https://github.com/ishimwede72",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "greedcon",
+          "title": "Greedcon",
+          "icon": "resources/icons/activity-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "greedcon": [
+        {
+          "type": "webview",
+          "id": "greedcon.views.main",
+          "name": "Greedcon"
+        },
+        {
+          "id": "greedcon.views.collections",
+          "name": "Collections"
+        },
+        {
+          "id": "greedcon.views.environments",
+          "name": "Environments"
+        },
+        {
+          "id": "greedcon.views.history",
+          "name": "History"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "greedcon.open",
+        "title": "Greedcon: Open",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "greedcon.newRequest",
+        "title": "Greedcon: New Request",
+        "icon": "$(add)"
+      },
+      {
+        "command": "greedcon.saveRequest",
+        "title": "Greedcon: Save Request to Collection"
+      },
+      {
+        "command": "greedcon.importCollection",
+        "title": "Greedcon: Import Collection"
+      },
+      {
+        "command": "greedcon.exportCollection",
+        "title": "Greedcon: Export Collection"
+      },
+      {
+        "command": "greedcon.openHistory",
+        "title": "Greedcon: Open History"
+      },
+      {
+        "command": "greedcon.runTests",
+        "title": "Greedcon: Run Tests"
+      },
+      {
+        "command": "greedcon.openSettings",
+        "title": "Greedcon: Open Settings"
+      },
+      {
+        "command": "greedcon.openPanel",
+        "title": "Greedcon: Open in Editor Tab"
+      },
+      {
+        "command": "greedcon.clearHistory",
+        "title": "Greedcon: Clear History"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "greedcon.open",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g"
+      },
+      {
+        "command": "greedcon.newRequest",
+        "key": "ctrl+shift+n",
+        "mac": "cmd+shift+n"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "greedcon.newRequest",
+          "when": "view == greedcon.views.main",
+          "group": "navigation"
+        },
+        {
+          "command": "greedcon.openPanel",
+          "when": "view == greedcon.views.main",
+          "group": "navigation"
+        },
+        {
+          "command": "greedcon.importCollection",
+          "when": "view == greedcon.views.collections || view == greedcon.views.main",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "greedcon.open",
+          "when": "true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Greedcon",
+      "properties": {
+        "greedcon.request.timeout": {
+          "type": "number",
+          "default": 30000,
+          "minimum": 100,
+          "maximum": 600000,
+          "description": "Default request timeout in milliseconds."
+        },
+        "greedcon.request.maxResponseBytes": {
+          "type": "number",
+          "default": 10485760,
+          "minimum": 1024,
+          "description": "Maximum response body size in bytes that will be retained (10 MB default)."
+        },
+        "greedcon.request.maxRedirects": {
+          "type": "number",
+          "default": 5,
+          "minimum": 0,
+          "maximum": 20,
+          "description": "Maximum number of redirects to follow."
+        },
+        "greedcon.request.validateSsl": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate TLS certificates. Disable only for local development servers with self-signed certificates."
+        },
+        "greedcon.security.allowPrivateNetwork": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow requests to localhost / private network addresses. Disable to restrict requests to public hosts."
+        },
+        "greedcon.security.allowHttpsToHttpRedirect": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow HTTPS URLs to be redirected to plain HTTP (protocol downgrade)."
+        },
+        "greedcon.history.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Record request history."
+        },
+        "greedcon.history.limit": {
+          "type": "number",
+          "default": 200,
+          "minimum": 10,
+          "maximum": 5000,
+          "description": "Maximum number of history entries to keep."
+        },
+        "greedcon.history.storeResponseBody": {
+          "type": "boolean",
+          "default": true,
+          "description": "Store response bodies in history (up to 64 KB per entry)."
+        },
+        "greedcon.storage.autoBackup": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep a rotating backup of collection, environment and history files."
+        },
+        "greedcon.logging.level": {
+          "type": "string",
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug",
+            "off"
+          ],
+          "default": "info",
+          "description": "Extension log level. Credentials are always redacted."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node scripts/build.ts",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.webview.json --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,js,json,css,md,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,css,md,yml}\"",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:watch": "vitest",
+    "clean": "node scripts/clean.ts",
+    "build": "node esbuild.js",
+    "package": "node scripts/package.ts",
+    "verify": "node scripts/verify.ts",
+    "vscode:prepublish": "node scripts/build.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^22.15.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.39.0",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.39.0",
+    "vitest": "^3.2.0"
+  }
+}

@@ -1,0 +1,115 @@
+/* Code / textarea editors (request body, JSON viewers) */
+
+.gc-editor {
+  position: relative;
+  background: var(--gc-bg-deep);
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius);
+  overflow: hidden;
+}
+
+.gc-editor:focus-within {
+  border-color: var(--gc-focus);
+}
+
+.gc-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gc-space-2);
+  padding: 6px 8px;
+  background: var(--gc-surface-2);
+  border-bottom: 1px solid var(--gc-border);
+  font-size: 11.5px;
+  color: var(--gc-text-muted);
+}
+
+.gc-editor-toolbar .gc-segmented button {
+  padding: 3px 9px;
+  font-size: 11px;
+}
+
+.gc-code {
+  width: 100%;
+  min-height: 160px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--gc-text);
+  font-family: var(--gc-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  padding: 10px 12px;
+  resize: vertical;
+  tab-size: 2;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
+
+.gc-code::placeholder {
+  color: var(--gc-text-dim);
+}
+
+.gc-editor-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  font-size: 11px;
+  border-top: 1px solid var(--gc-border);
+  background: var(--gc-surface);
+  color: var(--gc-text-dim);
+  font-family: var(--gc-mono);
+}
+
+.gc-editor-status .valid { color: var(--gc-success); }
+.gc-editor-status .invalid { color: var(--gc-error); }
+
+/* Read-only pre viewer */
+
+.gc-pre {
+  margin: 0;
+  padding: 10px 12px;
+  font-family: var(--gc-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--gc-text);
+  max-height: 100%;
+  overflow: auto;
+}
+
+.gc-pre.empty {
+  color: var(--gc-text-dim);
+  font-style: italic;
+}
+
+/* Line numbers gutter (simple overlay) */
+
+.gc-editor.with-gutter {
+  display: flex;
+}
+
+.gc-gutter {
+  padding: 10px 8px;
+  background: var(--gc-surface);
+  border-right: 1px solid var(--gc-border);
+  color: var(--gc-text-dim);
+  font-family: var(--gc-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  text-align: right;
+  user-select: none;
+  min-width: 34px;
+}
+
+/* JSON syntax tinting (applied to highlighted spans only) */
+
+.tok-key { color: #9d8cff; }
+.tok-string { color: #7ee0a3; }
+.tok-number { color: #f0a63a; }
+.tok-bool { color: #4aa3ff; }
+.tok-null { color: #ef5350; }
+.tok-punct { color: var(--gc-text-dim); }

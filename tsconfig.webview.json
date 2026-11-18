@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": []
+  },
+  "include": ["webview/**/*.ts", "src/types/**/*.ts"],
+  "exclude": ["node_modules", "dist", "media"]
+}

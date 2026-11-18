@@ -1,0 +1,85 @@
+/* GREEDCON design tokens.
+ * Dark charcoal surfaces + purple accent, aligned with VS Code theming
+ * variables where practical (falls back to fixed values). */
+
+:root {
+  /* Surfaces */
+  --gc-bg: #0e0e13;
+  --gc-bg-deep: #0a0a0e;
+  --gc-surface: #16161d;
+  --gc-surface-2: #1c1c25;
+  --gc-surface-3: #22222c;
+  --gc-elevated: #20202a;
+
+  /* Lines */
+  --gc-border: #262631;
+  --gc-border-strong: #33333f;
+  --gc-focus: #7c5cff;
+
+  /* Accent */
+  --gc-accent: #7c5cff;
+  --gc-accent-hover: #8f74ff;
+  --gc-accent-active: #6a4be6;
+  --gc-accent-soft: rgba(124, 92, 255, 0.14);
+  --gc-accent-border: rgba(124, 92, 255, 0.45);
+
+  /* Status */
+  --gc-success: #2ecc71;
+  --gc-success-soft: rgba(46, 204, 113, 0.14);
+  --gc-warning: #f0a63a;
+  --gc-warning-soft: rgba(240, 166, 58, 0.14);
+  --gc-error: #ef5350;
+  --gc-error-soft: rgba(239, 83, 80, 0.14);
+  --gc-info: #4aa3ff;
+  --gc-info-soft: rgba(74, 163, 255, 0.14);
+
+  /* Text */
+  --gc-text: #e9e9f2;
+  --gc-text-muted: #9c9cad;
+  --gc-text-dim: #6d6d7e;
+  --gc-text-inverse: #ffffff;
+
+  /* Method colors */
+  --gc-method-get: #2ecc71;
+  --gc-method-post: #4aa3ff;
+  --gc-method-put: #f0a63a;
+  --gc-method-patch: #b06ae0;
+  --gc-method-delete: #ef5350;
+  --gc-method-head: #7f8c9a;
+  --gc-method-options: #56cc9a;
+
+  /* Typography */
+  --gc-font: var(--vscode-font-family, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, sans-serif);
+  --gc-mono: var(--vscode-editor-font-family, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace);
+  --gc-font-size: 13px;
+  --gc-font-size-sm: 12px;
+  --gc-font-size-lg: 15px;
+  --gc-font-size-xl: 22px;
+
+  /* Spacing */
+  --gc-space-1: 4px;
+  --gc-space-2: 8px;
+  --gc-space-3: 12px;
+  --gc-space-4: 16px;
+  --gc-space-5: 24px;
+  --gc-space-6: 32px;
+
+  /* Shape */
+  --gc-radius: 6px;
+  --gc-radius-lg: 10px;
+  --gc-radius-sm: 4px;
+  --gc-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --gc-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+  /* Layout */
+  --gc-sidebar-w: 190px;
+  --gc-header-h: 46px;
+  --gc-transition: 140ms ease;
+}
+
+/* VS Code theme integration (used when the webview inherits editor colors) */
+body {
+  --gc-bg: var(--vscode-sideBar-background, #0e0e13);
+  --gc-text: var(--vscode-foreground, #e9e9f2);
+  --gc-border: var(--vscode-panel-border, #262631);
+}

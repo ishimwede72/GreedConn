@@ -1,0 +1,10 @@
+node_modules/
+dist/
+media/
+coverage/
+*.vsix
+*.tsbuildinfo
+.DS_Store
+.vscode-test/
+test-results/
+*.log

@@ -1,0 +1,161 @@
+/* Data tables (history, tests, key/value summaries) */
+
+.gc-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius-lg);
+  background: var(--gc-surface);
+}
+
+.gc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.gc-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gc-text-dim);
+  font-weight: 600;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--gc-border);
+  background: var(--gc-surface-2);
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+
+.gc-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--gc-border);
+  vertical-align: middle;
+}
+
+.gc-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.gc-table tbody tr {
+  transition: background var(--gc-transition);
+}
+
+.gc-table tbody tr:hover {
+  background: var(--gc-surface-2);
+}
+
+.gc-table tbody tr.clickable {
+  cursor: pointer;
+}
+
+.gc-table tbody tr.selected {
+  background: var(--gc-accent-soft);
+}
+
+.gc-table td.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.gc-table .cell-mono {
+  font-family: var(--gc-mono);
+  font-size: 12px;
+}
+
+.gc-table .cell-ellipsis {
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gc-table .cell-muted {
+  color: var(--gc-text-muted);
+}
+
+.gc-table .num {
+  text-align: right;
+  font-family: var(--gc-mono);
+}
+
+/* Toolbar above tables */
+
+.gc-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--gc-space-2);
+  margin-bottom: var(--gc-space-3);
+  flex-wrap: wrap;
+}
+
+.gc-toolbar .gc-search {
+  flex: 1;
+  min-width: 180px;
+  max-width: 340px;
+}
+
+/* Filter pills */
+
+.gc-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.gc-filter-pill {
+  border: 1px solid var(--gc-border);
+  background: transparent;
+  color: var(--gc-text-muted);
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all var(--gc-transition);
+}
+
+.gc-filter-pill:hover {
+  border-color: var(--gc-text-dim);
+  color: var(--gc-text);
+}
+
+.gc-filter-pill.active {
+  background: var(--gc-accent-soft);
+  border-color: var(--gc-accent-border);
+  color: var(--gc-accent-hover);
+}
+
+/* Stat cards */
+
+.gc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--gc-space-3);
+  margin-bottom: var(--gc-space-4);
+}
+
+.gc-stat {
+  background: var(--gc-surface);
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius);
+  padding: 12px 14px;
+}
+
+.gc-stat .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gc-text-dim);
+}
+
+.gc-stat .value {
+  font-size: 20px;
+  font-weight: 650;
+  font-family: var(--gc-mono);
+  margin-top: 3px;
+}
+
+.gc-stat .value.ok { color: var(--gc-success); }
+.gc-stat .value.err { color: var(--gc-error); }
+.gc-stat .value.accent { color: var(--gc-accent-hover); }

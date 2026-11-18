@@ -1,0 +1,92 @@
+/* Responsive adjustments — the webview may be docked very narrow. */
+
+@media (max-width: 900px) {
+  .gc-env-layout {
+    flex-direction: column;
+  }
+
+  .gc-env-list {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .gc-env-card {
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .gc-split-left {
+    width: 220px;
+  }
+
+  .gc-stats {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gc-sidebar-w: 54px;
+  }
+
+  .gc-brand-name,
+  .gc-brand-tagline,
+  .gc-nav-item span,
+  .gc-nav-badge,
+  .gc-sidebar-footer {
+    display: none;
+  }
+
+  .gc-brand {
+    justify-content: center;
+    padding: var(--gc-space-3) 0;
+  }
+
+  .gc-nav-item {
+    justify-content: center;
+    padding: 9px 0;
+  }
+
+  .gc-split {
+    flex-direction: column;
+  }
+
+  .gc-split-left {
+    width: 100%;
+    max-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--gc-border);
+  }
+
+  .gc-page {
+    padding: var(--gc-space-3);
+  }
+
+  .gc-kv-head,
+  .gc-kv-row {
+    grid-template-columns: 24px 1fr 1fr 30px;
+  }
+
+  .gc-kv-head .desc-col,
+  .gc-kv-row .desc-col {
+    display: none;
+  }
+
+  .gc-urlbar {
+    flex-wrap: wrap;
+  }
+
+  .gc-urlbar .gc-input.url {
+    min-width: 100%;
+    order: 3;
+  }
+
+  .gc-var-row {
+    grid-template-columns: 24px 1fr auto;
+  }
+
+  .gc-var-row .value {
+    grid-column: 2 / 4;
+  }
+}
