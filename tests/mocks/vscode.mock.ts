@@ -329,7 +329,10 @@ const window = {
     _options: unknown,
     task: (progress: { report(value: unknown): void }, token: unknown) => Thenable<R>,
   ): Thenable<R> {
-    return task({ report: () => {} }, { isCancellationRequested: false, onCancellationRequested: () => new Disposable() });
+    return task(
+      { report: () => {} },
+      { isCancellationRequested: false, onCancellationRequested: () => new Disposable() },
+    );
   },
   activeTextEditor: undefined as unknown,
   onDidChangeActiveTextEditor: () => new Disposable(),
@@ -429,7 +432,7 @@ export const __mock = {
     workspaceStorageUri: Uri.file(`${storagePath}-workspace`),
     extensionPath: storagePath,
     extensionUri: Uri.file(storagePath),
-    extension: { id: 'greedcon.greedcon', packageJSON: { name: 'greedcon', version: '1.0.0' } },
+    extension: { id: 'GreedConn.greedcon', packageJSON: { name: 'greedcon', version: '1.0.0' } },
     secrets: new SecretStorageMock(),
     globalState: {
       get: () => undefined,

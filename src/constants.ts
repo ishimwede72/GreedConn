@@ -2,7 +2,7 @@
  * Extension-wide constants.
  */
 
-export const EXTENSION_ID = 'greedcon';
+export const EXTENSION_ID = 'GreedConn.greedcon';
 export const EXTENSION_NAME = 'Greedcon';
 export const OUTPUT_CHANNEL_NAME = 'Greedcon';
 

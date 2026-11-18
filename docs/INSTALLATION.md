@@ -98,7 +98,7 @@ Then reload VS Code and run **Greedcon: Open**.
 ## 5. Uninstall / cleanup
 
 ```bash
-code --uninstall-extension greedcon.greedcon
+code --uninstall-extension GreedConn.greedcon
 ```
 
 To remove Greedcon's data completely:
@@ -108,13 +108,13 @@ To remove Greedcon's data completely:
 
 ## 6. Where data is stored
 
-Everything is local, under VS Code's **global storage** directory for the extension id `greedcon.greedcon` (publisher `greedcon`, name `greedcon`):
+Everything is local, under VS Code's **global storage** directory for the extension id `GreedConn.greedcon` (publisher `GreedConn`, name `greedcon`):
 
-| OS      | Path pattern                                                               |
-| ------- | -------------------------------------------------------------------------- |
-| Linux   | `~/.config/Code/User/globalStorage/greedcon.greedcon/`                     |
-| macOS   | `~/Library/Application Support/Code/User/globalStorage/greedcon.greedcon/` |
-| Windows | `%APPDATA%\Code\User\globalStorage\greedcon.greedcon\`                     |
+| OS      | Path pattern                                                                |
+| ------- | --------------------------------------------------------------------------- |
+| Linux   | `~/.config/Code/User/globalStorage/GreedConn.greedcon/`                     |
+| macOS   | `~/Library/Application Support/Code/User/globalStorage/GreedConn.greedcon/` |
+| Windows | `%APPDATA%\Code\User\globalStorage\GreedConn.greedcon\`                     |
 
 (For VS Code Insiders, `Code` becomes `Code - Insiders`; the exact location follows your VS Code data directory.)
 

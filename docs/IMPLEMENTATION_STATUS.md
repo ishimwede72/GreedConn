@@ -33,13 +33,13 @@ Final verification was run on 2026-11-18 with Node.js 26.13.1 using `npm run ver
 - ESLint: passed with 0 errors and 60 warnings.
 - Automated tests: 466 passed across 26 test files.
 - Production build: passed (`dist/extension.js`, `media/webview.js`, and `media/webview.css`).
-- VSIX package: passed; `dist/greedcon.vsix` is 95,395 bytes (about 93.2 KiB).
+- VSIX package: passed; `dist/greedcon.vsix` is 95,404 bytes (about 93.2 KiB).
 - VSIX archive integrity: passed; 16 files are packaged, including the compiled extension, webview assets, icon, and license.
-- VS Code Extension Development Host smoke check: not run in this headless environment.
+- VS Code Extension Development Host: launched with Greedcon loaded in development mode; the sidebar webview was not opened to confirm rendered UI.
 
 ## Known limitations
 
-- Interactive verification inside the VS Code Extension Development Host has not been performed in this environment.
+- The main view still needs an interactive check inside the VS Code Extension Development Host.
 - OAuth 2.0 behavior depends on the authorization server and the local callback port range `53000–53999` being available.
 - HTTP requests are executed directly by the extension host; system proxy configuration is not applied.
 

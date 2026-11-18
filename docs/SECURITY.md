@@ -153,7 +153,7 @@ The Settings page surfaces a **Security** card summarizing these protections and
 
 ## 12. Data at rest
 
-- **Local only.** Collections, environments, history, settings and test runs are plain JSON files in VS Code's `globalStorage` (`…/User/globalStorage/greedcon.greedcon/`). There is no cloud component, no sync, no account.
+- **Local only.** Collections, environments, history, settings and test runs are plain JSON files in VS Code's `globalStorage` (`…/User/globalStorage/GreedConn.greedcon/`). There is no cloud component, no sync, no account.
 - **No telemetry.** The extension contains no analytics/telemetry code or dependencies; the only network traffic is the HTTP requests you send and OAuth2 flows you start.
 - **Recovery, not exfiltration.** Corruption quarantine files (`*.corrupt.<ts>`) and backups (`.bak.N`, `backups/<stamp>_<label>/`) stay in the same local directory.
 - **Uninstall** removes the extension code; your data directory and SecretStorage entries remain until you delete them (see [INSTALLATION.md](./INSTALLATION.md#uninstall--cleanup)).
