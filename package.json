@@ -2,7 +2,7 @@
   "name": "greedcon",
   "displayName": "Greedcon",
   "description": "Professional API testing and development platform for VS Code. Build, send and inspect HTTP requests, manage collections, environments and automated tests — all locally.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "GreedConn",
   "license": "MIT",
   "icon": "resources/icons/greedcon.png",

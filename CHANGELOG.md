@@ -19,6 +19,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Packaging now validates the icon PNG dimensions, includes the MIT license, and reports invalid packaging assets before invoking `vsce`.
 - Installation instructions now match the checked-in launch configuration and available scripts.
 
+## [1.0.1]
+
+### Added
+
+- JSON and markup syntax highlighting in request editors, response-body copying, and selectable default response views.
+- Expandable, redacted network error diagnostics and clearer request success/failure status messages.
+- Settings actions to clear history and erase stored Greedcon data and credentials.
+- Multicolor G branding across the extension and a user-focused README.
+
+### Fixed
+
+- Request URL input sizing after selecting a method, including narrow layouts.
+- Publisher ID alignment with the GreedConn Marketplace publisher.
+
 ## [1.0.0]
 
 ### Added
