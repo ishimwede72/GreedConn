@@ -1,6 +1,29 @@
 /* Responsive adjustments — the webview may be docked very narrow. */
 
 @media (max-width: 900px) {
+  .gc-request-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    overflow-y: auto;
+  }
+
+  .gc-request-builder,
+  .gc-response {
+    min-height: 420px;
+  }
+
+  .gc-request-builder {
+    border-right: none;
+    border-bottom: 1px solid var(--gc-border);
+  }
+
+  .gc-welcome-guide {
+    grid-template-columns: 1fr;
+  }
+
+  .gc-welcome-step p {
+    min-height: 0;
+  }
+
   .gc-env-layout {
     flex-direction: column;
   }
@@ -61,6 +84,18 @@
 
   .gc-page {
     padding: var(--gc-space-3);
+  }
+
+  .gc-welcome-hero {
+    align-items: flex-start;
+    padding: 18px;
+  }
+
+  .gc-welcome-hero-mark {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    font-size: 28px;
   }
 
   .gc-kv-head,

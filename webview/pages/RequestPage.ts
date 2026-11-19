@@ -90,7 +90,7 @@ class RequestPage implements Page {
     this.unsub.length = 0;
 
     clear(container);
-    container.appendChild(this.renderUrlBar(draft));
+    const requestToolbar = this.renderUrlBar(draft);
 
     const builder = h('div', { className: 'gc-request-builder' });
     this.builderBody = h('div', { className: 'gc-builder-body', style: { padding: '14px 16px' } });
@@ -111,7 +111,8 @@ class RequestPage implements Page {
     builder.append(this.builderTabs.element(), this.builderBody);
 
     this.responseRoot = h('div', { className: 'gc-response' });
-    container.append(builder, this.responseRoot);
+    const workspace = h('div', { className: 'gc-request-workspace' }, builder, this.responseRoot);
+    container.append(requestToolbar, workspace);
 
     this.renderBuilder();
     this.syncUrlBar(draft);
@@ -187,7 +188,7 @@ class RequestPage implements Page {
 
     return h(
       'div',
-      { style: { padding: '14px 16px 10px' } },
+      { className: 'gc-request-toolbar' },
       h(
         'div',
         { className: 'gc-urlbar' },

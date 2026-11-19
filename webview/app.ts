@@ -55,7 +55,9 @@ function renderPage(force = false): void {
   const next = PAGES[state.page];
   if (!next) return;
   if (next === activePage && isEditing() && !force) return;
-  if (activePage && activePage !== next) activePage.dispose?.();
+  const changingPage = activePage !== next;
+  if (activePage && changingPage) activePage.dispose?.();
+  if (changingPage) clear(pageHost);
   activePage = next;
   next.render(pageHost);
 }
