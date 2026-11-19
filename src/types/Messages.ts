@@ -120,6 +120,7 @@ export interface WebviewMessageMap {
   'app.openSettings': Record<string, never>;
   'app.openExternal': { url: string };
   'app.saveDraft': { request: HttpRequestModel };
+  'app.eraseData': { confirmation: 'ERASE' };
   'request.send': SendRequestPayload;
   'request.cancel': Record<string, never>;
   'request.formatJson': { text: string };

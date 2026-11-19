@@ -44,6 +44,8 @@ export interface HttpResponseModel {
 export interface ResponseError {
   code: string;
   message: string;
+  /** Sanitized stack/diagnostic text, shown only when the user expands details. */
+  details?: string;
   /** True when the user cancelled the request. */
   aborted?: boolean;
   /** True for timeouts. */

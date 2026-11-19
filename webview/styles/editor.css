@@ -30,12 +30,16 @@
 }
 
 .gc-code {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 160px;
   border: none;
   outline: none;
   background: transparent;
-  color: var(--gc-text);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: var(--gc-text);
   font-family: var(--gc-mono);
   font-size: 12.5px;
   line-height: 1.55;
@@ -45,6 +49,39 @@
   white-space: pre;
   overflow-wrap: normal;
   overflow-x: auto;
+}
+
+.gc-editor-surface {
+  position: relative;
+  min-height: 160px;
+  overflow: hidden;
+}
+
+.gc-code-highlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: max-content;
+  min-width: 100%;
+  min-height: 160px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px 12px;
+  overflow: hidden;
+  background: transparent;
+  color: var(--gc-text);
+  font-family: var(--gc-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  tab-size: 2;
+  white-space: pre;
+  pointer-events: none;
+  user-select: none;
+}
+
+.gc-code::selection {
+  color: transparent;
+  background: color-mix(in srgb, var(--gc-focus) 42%, transparent);
 }
 
 .gc-code::placeholder {
@@ -63,8 +100,12 @@
   font-family: var(--gc-mono);
 }
 
-.gc-editor-status .valid { color: var(--gc-success); }
-.gc-editor-status .invalid { color: var(--gc-error); }
+.gc-editor-status .valid {
+  color: var(--gc-success);
+}
+.gc-editor-status .invalid {
+  color: var(--gc-error);
+}
 
 /* Read-only pre viewer */
 
@@ -107,9 +148,37 @@
 
 /* JSON syntax tinting (applied to highlighted spans only) */
 
-.tok-key { color: #9d8cff; }
-.tok-string { color: #7ee0a3; }
-.tok-number { color: #f0a63a; }
-.tok-bool { color: #4aa3ff; }
-.tok-null { color: #ef5350; }
-.tok-punct { color: var(--gc-text-dim); }
+.tok-key {
+  color: #9d8cff;
+}
+.tok-string {
+  color: #7ee0a3;
+}
+.tok-number {
+  color: #f0a63a;
+}
+.tok-bool {
+  color: #4aa3ff;
+}
+.tok-null {
+  color: #ef5350;
+}
+.tok-punct {
+  color: var(--gc-text-dim);
+}
+.tok-tag {
+  color: #78b8ff;
+}
+.tok-attr {
+  color: #c79aff;
+}
+.tok-attr-value {
+  color: #7ee0a3;
+}
+.tok-comment {
+  color: var(--gc-text-dim);
+  font-style: italic;
+}
+.tok-meta {
+  color: #f0a63a;
+}

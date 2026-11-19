@@ -81,14 +81,25 @@
 }
 
 .gc-urlbar .gc-select.method {
+  width: auto;
   min-width: 104px;
+  flex: 0 0 104px;
   font-family: var(--gc-mono);
   font-weight: 700;
   background: var(--gc-surface-2);
 }
 
+.gc-urlbar > .gc-select:not(.method) {
+  width: auto;
+  min-width: 110px;
+  max-width: 190px;
+  flex: 0 1 170px;
+}
+
 .gc-urlbar .gc-input.url {
-  flex: 1;
+  width: 0;
+  min-width: 0;
+  flex: 1 1 auto;
   font-family: var(--gc-mono);
   font-size: 13px;
   background: transparent;

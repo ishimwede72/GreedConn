@@ -85,6 +85,29 @@ export class MessageHandlers {
       await this.persistDraft(payload.request);
       return { saved: true };
     });
+    r.register('app.eraseData', async () => {
+      const collections = await s.collections.list();
+      const secrets = await s.credentials.list();
+      const [history, testRuns, environments] = await Promise.all([
+        s.history.clear(),
+        s.testRuns.clear(),
+        s.environments.reset(),
+      ]);
+      for (const collection of collections) await s.collections.delete(collection.id);
+      for (const secret of secrets) await s.credentials.delete(secret.id);
+      const settings = await s.settings.reset();
+      s.emit('collections.changed', { collections: [] });
+      s.emit('environments.changed', { environments: [], activeId: '' });
+      s.emit('history.changed', { count: 0 });
+      s.emit('settings.changed', { settings });
+      return {
+        collections: collections.length,
+        environments,
+        history,
+        testRuns,
+        secrets: secrets.length,
+      };
+    });
 
     // --- request --------------------------------------------------------
     r.register('request.send', (payload: { request: HttpRequestModel; environmentId?: string }) =>

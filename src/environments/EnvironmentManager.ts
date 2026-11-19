@@ -37,6 +37,10 @@ export class EnvironmentManager {
     return this.repository.delete(id);
   }
 
+  reset(): Promise<number> {
+    return this.repository.reset();
+  }
+
   setActive(id: string): Promise<string> {
     return this.repository.setActive(id);
   }

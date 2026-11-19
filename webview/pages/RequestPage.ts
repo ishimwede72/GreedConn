@@ -59,9 +59,11 @@ class RequestPage implements Page {
   private responseTabs: Tabs | null = null;
   private activeBuilderTab: BuilderTab = 'params';
   private activeResponseTab: ResponseTab = 'pretty';
+  private responseTabManuallySelected = false;
   private readonly unsub: Array<() => void> = [];
 
   render(container: HTMLElement): void {
+    this.initializeResponseTab();
     const draft = ensureDraft();
     if (this.container !== container || this.builtForId !== draft.id) {
       this.container = container;
@@ -765,11 +767,20 @@ class RequestPage implements Page {
       }
       if (result.response) {
         const status = result.response.status;
+        const statusLabel = `HTTP ${status}${
+          result.response.statusText ? ` ${result.response.statusText}` : ''
+        }`;
+        const failedAssertions = result.testRun?.summary.failed ?? 0;
+        const requestFailed = !!result.response.error || status >= 400;
         state.pushToast(
-          result.response.error ? 'error' : status >= 400 ? 'warning' : 'success',
+          requestFailed || failedAssertions > 0 ? 'error' : 'success',
           result.response.error
-            ? `Request failed: ${result.response.error.message}`
-            : `${draft.method} → ${status} in ${formatDuration(result.response.responseTime)}`,
+            ? `Request failed (${result.response.error.code}): ${result.response.error.message}`
+            : status >= 400
+              ? `Request failed: ${statusLabel} returned an error status.`
+              : failedAssertions > 0
+                ? `${draft.method} completed with ${statusLabel}, but ${failedAssertions} test assertion(s) failed.`
+                : `${draft.method} succeeded with ${statusLabel} in ${formatDuration(result.response.responseTime)}.`,
         );
       }
       if (result.variableIssues && result.variableIssues.length > 0) {
@@ -868,6 +879,21 @@ class RequestPage implements Page {
           ? h('span', { className: 'gc-chip error', text: response.error.code })
           : h('span', { className: `gc-chip ${response.status < 400 ? 'success' : 'error'}`,
               text: `${response.status} ${response.statusText ?? ''}`.trim() }),
+        button('Copy body', {
+          size: 'sm',
+          iconName: 'copy',
+          title: 'Copy response body',
+          onClick: () => {
+            void navigator.clipboard.writeText(response.body ?? '').then(
+              () => state.pushToast('success', 'Response body copied.'),
+              (error: unknown) =>
+                state.pushToast(
+                  'error',
+                  `Could not copy response: ${error instanceof Error ? error.message : String(error)}`,
+                ),
+            );
+          },
+        }),
       );
     }
     this.responseRoot.appendChild(header);
@@ -888,11 +914,17 @@ class RequestPage implements Page {
     }
 
     if (response.error && !response.body) {
+      const errorDetails = response.error.details
+        ? h('details', { className: 'gc-error-details' },
+            h('summary', { text: 'Show full error details' }),
+            h('pre', { text: response.error.details }))
+        : null;
       this.responseRoot.appendChild(
         h('div', { className: 'gc-response-body' },
           h('div', { className: 'gc-response-error' },
             h('h4', { text: response.error.message }),
-            h('div', { className: 'code', text: response.error.code }))),
+            h('div', { className: 'code', text: response.error.code }),
+            errorDetails)),
       );
       return;
     }
@@ -907,6 +939,7 @@ class RequestPage implements Page {
       ],
       active: this.activeResponseTab,
       onChange: (id) => {
+        this.responseTabManuallySelected = true;
         this.activeResponseTab = id as ResponseTab;
         this.renderResponse();
       },
@@ -964,6 +997,13 @@ class RequestPage implements Page {
         }
         return renderTestRun(state.testRun);
       }
+    }
+  }
+
+  private initializeResponseTab(): void {
+    const preferred = state.settings?.ui.responseViewMode;
+    if (!this.responseTabManuallySelected && (preferred === 'raw' || preferred === 'preview' || preferred === 'pretty')) {
+      this.activeResponseTab = preferred;
     }
   }
 }

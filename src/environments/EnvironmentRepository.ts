@@ -209,6 +209,19 @@ export class EnvironmentRepository {
     await this.persist();
   }
 
+  async reset(): Promise<number> {
+    const doc = await this.load();
+    const removed =
+      doc.environments.length +
+      doc.globals.variables.length +
+      doc.environments.reduce((total, environment) => total + environment.variables.length, 0);
+    doc.environments = [];
+    doc.globals = { variables: [], updatedAt: nowIso() };
+    doc.activeEnvironmentId = '';
+    await this.persist();
+    return removed;
+  }
+
   async getDocument(): Promise<EnvironmentsDocument> {
     return this.load();
   }

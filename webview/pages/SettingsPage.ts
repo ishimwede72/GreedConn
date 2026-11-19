@@ -8,10 +8,12 @@ import { confirmDialog, promptDialog } from '../components/Modal';
 import type { Page } from './types';
 import { state } from '../state/AppState';
 import { navigate } from '../state/NavigationState';
+import { defaultSettings } from '../../src/types/Storage';
 import { bridge } from '../services/VsCodeBridge';
 import { HistoryService } from '../services/HistoryService';
 import { CollectionService } from '../services/CollectionService';
 import { EnvironmentService } from '../services/EnvironmentService';
+import { TestService } from '../services/TestService';
 
 class SettingsPage implements Page {
   readonly id = 'settings' as const;
@@ -28,6 +30,7 @@ class SettingsPage implements Page {
       );
     }
     this.build(container);
+    void this.loadTestHistory(container);
   }
 
   dispose(): void {
@@ -61,9 +64,16 @@ class SettingsPage implements Page {
         attrs: { 'aria-label': 'Default response view', style: 'max-width: 220px' },
         on: {
           change: async (event) => {
-            const value = (event.currentTarget as HTMLSelectElement).value as 'pretty' | 'raw' | 'preview';
-            await this.patch({ ui: { responseViewMode: value } });
-            state.pushToast('success', 'Preference saved.');
+            const value = (event.currentTarget as HTMLSelectElement).value as
+              | 'pretty'
+              | 'raw'
+              | 'preview';
+            try {
+              await this.patch({ ui: { responseViewMode: value } });
+              state.pushToast('success', 'Preference saved.');
+            } catch (error) {
+              state.pushToast('error', error instanceof Error ? error.message : String(error));
+            }
           },
         },
       },
@@ -185,20 +195,29 @@ class SettingsPage implements Page {
 
   // --- actions ----------------------------------------------------------
 
-  private async patch(patch: Record<string, unknown>): Promise<void> {
+  private async loadTestHistory(container: HTMLElement): Promise<void> {
     try {
-      await bridge.request('settings.update', { patch });
-      const result = await bridge.request<{ settings: typeof state.settings }>('settings.get');
-      state.settings = result.settings;
-      state.emit('settings');
-    } catch (error) {
-      state.pushToast('error', error instanceof Error ? error.message : String(error));
+      const result = await TestService.history(100);
+      state.testHistory = result.runs;
+      state.emit('tests');
+      if (this.container === container && state.page === this.id) this.build(container);
+    } catch {
+      // Keep the page usable in preview mode; the Test runs stat remains at
+      // its last known value until the host becomes available.
     }
+  }
+
+  private async patch(patch: Record<string, unknown>): Promise<void> {
+    await bridge.request('settings.update', { patch });
+    const result = await bridge.request<{ settings: typeof state.settings }>('settings.get');
+    state.settings = result.settings;
+    state.emit('settings');
   }
 
   private async openVscodeSettings(): Promise<void> {
     try {
       await bridge.request('app.openSettings', {}, 10000);
+      state.pushToast('success', 'Opened Greedcon settings in VS Code.');
     } catch {
       state.pushToast('info', 'Open Preferences → Settings and search for "Greedcon".');
     }
@@ -241,7 +260,7 @@ class SettingsPage implements Page {
   private async eraseAll(): Promise<void> {
     const typed = await promptDialog(
       'Erase everything',
-      'Type ERASE to confirm — this removes all collections, environments and history.',
+      'Type ERASE to permanently remove collections, environments, request history, test runs, saved settings and stored credentials.',
       '',
     );
     if (typed !== 'ERASE') {
@@ -249,22 +268,34 @@ class SettingsPage implements Page {
       return;
     }
     try {
-      for (const collection of [...state.collectionSummaries]) {
-        await CollectionService.delete(collection.id);
-      }
-      for (const environment of [...state.environments]) {
-        await EnvironmentService.delete(environment.id);
-      }
-      await HistoryService.clear();
+      const result = await bridge.request<{
+        collections: number;
+        environments: number;
+        history: number;
+        testRuns: number;
+        secrets: number;
+      }>('app.eraseData', { confirmation: 'ERASE' }, 60000);
       state.setCollections([]);
       state.setEnvironments([], '');
       state.globals = [];
+      state.globalVariables = { variables: [], updatedAt: new Date().toISOString() };
       state.history = [];
       state.historyTotal = 0;
-      state.emit('collections');
-      state.emit('environments');
+      state.testHistory = [];
+      state.draft = null;
+      state.activeTests = [];
+      state.testRun = null;
+      state.settings = defaultSettings();
       state.emit('history');
-      state.pushToast('success', 'All Greedcon data erased.');
+      state.emit('tests');
+      state.emit('settings');
+      const total =
+        result.collections +
+        result.environments +
+        result.history +
+        result.testRuns +
+        result.secrets;
+      state.pushToast('success', `All Greedcon data erased (${total} stored items removed).`);
       this.build(this.container!);
     } catch (error) {
       state.pushToast('error', error instanceof Error ? error.message : String(error));

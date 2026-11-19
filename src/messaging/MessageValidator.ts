@@ -88,6 +88,10 @@ function validatePayload(type: WebviewMessageType, data: Record<string, unknown>
       if (!request.ok) return fail(request.error ?? 'invalid request');
       return ok({ request: request.value });
     }
+    case 'app.eraseData': {
+      if (data['confirmation'] !== 'ERASE') return fail('confirmation must be ERASE');
+      return ok({ confirmation: 'ERASE' });
+    }
     case 'app.getState':
     case 'app.openSettings':
     case 'request.cancel':

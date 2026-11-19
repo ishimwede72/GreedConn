@@ -54,6 +54,13 @@ export class SettingsStorage {
     return this.cache;
   }
 
+  async reset(): Promise<SettingsState> {
+    this.cache = defaultSettings();
+    this.loading = Promise.resolve(this.cache);
+    await this.persist();
+    return this.cache;
+  }
+
   invalidate(): void {
     this.cache = null;
     this.loading = null;

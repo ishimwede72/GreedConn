@@ -73,20 +73,34 @@
     display: none;
   }
 
-  .gc-urlbar {
-    flex-wrap: wrap;
-  }
-
-  .gc-urlbar .gc-input.url {
-    min-width: 100%;
-    order: 3;
-  }
-
   .gc-var-row {
     grid-template-columns: 24px 1fr auto;
   }
 
   .gc-var-row .value {
     grid-column: 2 / 4;
+  }
+}
+
+@media (max-width: 760px) {
+  .gc-urlbar {
+    flex-wrap: wrap;
+  }
+
+  .gc-urlbar .gc-select.method {
+    order: 0;
+  }
+
+  .gc-urlbar .gc-input.url {
+    min-width: 100%;
+    order: 1;
+  }
+
+  .gc-urlbar > .gc-select:not(.method) {
+    order: 2;
+  }
+
+  .gc-urlbar > .gc-btn {
+    order: 3;
   }
 }

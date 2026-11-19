@@ -33,7 +33,11 @@ export class Sidebar {
         on: { click: () => navigate('welcome') },
         attrs: { role: 'button', tabindex: '0' },
       },
-      h('div', { className: 'gc-brand-mark' }, icon('bolt')),
+      h('div', {
+        className: 'gc-brand-mark',
+        text: 'G',
+        attrs: { 'aria-hidden': 'true' },
+      }),
       h(
         'div',
         null,

@@ -33,9 +33,9 @@ Final verification was run on 2026-11-18 with Node.js 26.13.1 using `npm run ver
 - ESLint: passed with 0 errors and 60 warnings.
 - Automated tests: 466 passed across 26 test files.
 - Production build: passed (`dist/extension.js`, `media/webview.js`, and `media/webview.css`).
-- VSIX package: passed; `dist/greedcon.vsix` is 95,404 bytes (about 93.2 KiB).
+- VSIX package: passed; `dist/greedcon.vsix` is 106,608 bytes (about 104.1 KB).
 - VSIX archive integrity: passed; 16 files are packaged, including the compiled extension, webview assets, icon, and license.
-- VS Code Extension Development Host: launched with Greedcon loaded in development mode; the sidebar webview was not opened to confirm rendered UI.
+- VS Code Extension Development Host: launched with Greedcon loaded in development mode; the sidebar webview still needs an interactive visual check.
 
 ## Known limitations
 

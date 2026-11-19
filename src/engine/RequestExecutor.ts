@@ -78,6 +78,14 @@ export class RequestExecutor {
         ...(controller.signal ? { signal: controller.signal } : {}),
         url: resolved.request.url,
       });
+      const authSecrets = [
+        ...(preparedAuth.type === 'bearer' ? [preparedAuth.token] : []),
+        ...(preparedAuth.type === 'basic' ? [preparedAuth.password] : []),
+        ...(preparedAuth.type === 'apiKey' ? [preparedAuth.value] : []),
+        ...(preparedAuth.type === 'oauth2' ? [preparedAuth.clientSecret] : []),
+        ...Object.values(authApplication.headers),
+        ...(authApplication.cookieHeader ? [authApplication.cookieHeader] : []),
+      ].filter((value): value is string => typeof value === 'string' && value.length > 0);
       if (request.authentication.type === 'oauth2' && preparedAuth.type === 'oauth2') {
         if (preparedAuth.accessTokenSecretId) {
           request.authentication.accessTokenSecretId = preparedAuth.accessTokenSecretId;
@@ -141,14 +149,6 @@ export class RequestExecutor {
           requestId: request.id,
           maxBodyBytes: this.security.maxResponseBytes(),
         });
-        const authSecrets = [
-          ...(preparedAuth.type === 'bearer' ? [preparedAuth.token] : []),
-          ...(preparedAuth.type === 'basic' ? [preparedAuth.password] : []),
-          ...(preparedAuth.type === 'apiKey' ? [preparedAuth.value] : []),
-          ...(preparedAuth.type === 'oauth2' ? [preparedAuth.clientSecret] : []),
-          ...Object.values(authApplication.headers),
-          ...(authApplication.cookieHeader ? [authApplication.cookieHeader] : []),
-        ].filter((value): value is string => typeof value === 'string' && value.length > 0);
         if (response.finalUrl) {
           response.body = redactKnownSecrets(
             redactQuerySecrets(response.body, [response.finalUrl], sensitiveQueryKeys),
@@ -172,9 +172,27 @@ export class RequestExecutor {
         logger.warn(
           `${request.method} ${safeRequestUrl} failed: ${classified.code} ${classified.message}`,
         );
+        const rawDetails =
+          error instanceof Error
+            ? error.stack ?? `${error.name}: ${error.message}`
+            : String(error);
+        const containsShortCredential = authSecrets.some(
+          (secret) => secret.length > 0 && secret.length < 4 && rawDetails.includes(secret),
+        );
+        const details = containsShortCredential
+          ? '[Error details hidden because they may contain a short credential.]'
+          : redactKnownSecrets(
+              redactQuerySecrets(
+                rawDetails.split(build.built.url).join(safeRequestUrl),
+                [build.built.url],
+                sensitiveQueryKeys,
+              ),
+              authSecrets,
+            );
         const response = this.errorResponse(request, classified.code, classified.message, {
           aborted: classified.code === 'ABORT_ERR',
           timeout: classified.category === 'timeout',
+          details,
         });
         response.responseTime = Math.round(performance.now() - startedAt);
         return { response, warnings, variableIssues: resolved.issues };
@@ -188,7 +206,7 @@ export class RequestExecutor {
     request: HttpRequestModel,
     code: string,
     message: string,
-    extra: { aborted?: boolean; timeout?: boolean } = {},
+    extra: { aborted?: boolean; timeout?: boolean; details?: string } = {},
   ): HttpResponseModel {
     return {
       status: 0,

@@ -11,6 +11,7 @@ export const MESSAGE_TYPES = [
   'app.openSettings',
   'app.openExternal',
   'app.saveDraft',
+  'app.eraseData',
   'request.send',
   'request.cancel',
   'request.formatJson',

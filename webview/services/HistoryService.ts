@@ -14,7 +14,7 @@ export const HistoryService = {
   },
 
   clear(): Promise<{ removed: number }> {
-    return bridge.request('history.clear', {}, 15000);
+    return bridge.request('history.clear', { confirm: true }, 15000);
   },
 
   cleanup(keepLast: number): Promise<{ removed: number }> {
